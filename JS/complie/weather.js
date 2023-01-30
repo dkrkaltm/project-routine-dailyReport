@@ -2,7 +2,7 @@ class Weather {
     URL;
     lat;
     lon;
-    key = '897fc4ef9ea1ad8e839d8b2fa792b91c';
+    key = ;
     sky;
     temp;
     name;
