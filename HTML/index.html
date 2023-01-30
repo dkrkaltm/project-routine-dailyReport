@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello-routine-dailyReport</title>
+    <script src="https://kit.fontawesome.com/9ca3e15048.js" crossorigin="anonymous"></script>
+
+
+    <script src="../JS/complie/time.js" defer></script>
+    <script src="../JS/complie/weather.js" defer></script>
+    
+    <script src="../JS/background.js" defer></script>
+    <script src ="../JS/complie/mediaPlayer.js" defer></script>
+
+    <link rel="stylesheet" href="../css/main.css">
+
+    
+</head>
+<body>
+    <section id = 'routine'>
+
+        <article id='time-container'>
+            <time id= 'time-date'></time>
+            <time id= 'time-hour'></time>
+            
+            <form  action="" method="get" id='target-container'>
+                <input type="text" id= 'target-input' required autocomplete="off" />
+                <label for='target-input'id = 'target-label' >이번 주 목표는?</label>
+                <span id="target-line"></span>
+            </form>    
+            <button  id='target-button' type='click'>
+                <i id="arrow" class="fas fa-solid fa-arrow-right"></i>
+                일정등록
+            </button>
+
+           <nav id="media-player">
+             <div class="media-player-container">
+                <i id="media-player-button" class="media-player-button fas fa-solid fa-stop fa-lg"></i>
+                <label id="media-player-buttonL"for="media-player-button">STOP</label>
+            </div>
+            <div class="media-player-container">
+                <i id="media-player-source" class="media-player-button fab fa-brands fa-youtube fa-lg"></i>
+                <label for="media-player-source">출처</label>
+            </div>
+            <div class="media-player-container">
+                <i id="media-player-volume" class="media-player-button fas fa-solid fa-volume-off fa-lg"></i>
+                <label for="media-player-volume">소리</label>
+
+                <div class="hidden" id='seekBar'>
+                    <div id='seekBar-box'>
+                        <span id ='seekBar-box-btn'></span>
+                        <span id ='seekBar-box-color'></span>
+                        <span id ='seekBar-box-number'></span>
+                    </div>
+                </div>
+
+            </div>
+           
+                <!-- <i class="fas fa-solid fa-stop"></i> -->
+           </nav>
+
+        </article>
+ 
+        
+        <article id ='planer' class="hidden">
+            <form action="" method ='get' id = 'planer-form'>
+            </form>
+        </article>
+  
+        <div class=" "id="player"></div>
+    </section>
+    
+</body>
+</html>

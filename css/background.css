@@ -1,0 +1,18 @@
+#player{
+    position:fixed;
+    z-index: -99;
+    filter:brightness(0.5);
+
+
+
+}
+
+@keyframes order {
+    0%{
+        opacity: 0;
+        background-color: black;
+    }
+    100%{
+        opacity: 100%;
+    }
+}

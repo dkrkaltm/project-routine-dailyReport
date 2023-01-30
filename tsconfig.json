@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "target": "ES2022", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021', or 'ESNEXT'. */
+      "module": "CommonJS", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
+      "removeComments": true, //js 파일에는 주석이 삭제되고 들어감
+      "sourceMap": true, //이렇게 하면 크롬 개발자도구에서 ts파일 확인가능
+      "outDir": "JS/complie"
+    },
+   
+  }
