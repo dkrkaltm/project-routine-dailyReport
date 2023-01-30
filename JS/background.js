@@ -20,46 +20,94 @@
       'rel':0, // 관련동영상 표시할지 여부
       // 'playlist':`Km71Rr9K-Bw,v7bnOxV4jAc,Ccz123Jlflc`, // loop 사용하기 위해서 같이 사용해야함
       'mute':true,
-
+      'enablejsapi':1,
+      'origin':'a',
       
    },
   
      events: {
        'onReady': onPlayerReady,
        'onStateChange': onPlayerStateChange,
-       'error': onError
+       'onError':onError
      }
    });
  }
 
-function onError(err){
 
-  console.log(err);
-}
 
+let done = false;
+let Background;
  function onPlayerReady(event) {
- 
-  event.target.setSize(1950,1500);
-   event.target.loadVideoById( CurrentWeather.getMediaData(),30,'default');
-  //  event.target.setVolume(0);
-  event.target.playVideo();
-  event.target.unMute();
-  // CurrentWeather.getMediaData()
- 
-  //  document.querySelector("#media-player i").className = "fas fa-solid fa-play-pause";
+    
+    Background = document.querySelector('#player');
+    event.target.setSize(1950,1500);
+    //  event.target.loadVideoById('av',30,'default');
+    //  event.target.setVolume(0);
 
- }
- 
+   
+    event.target.loadVideoById(CurrentWeather.getMediaData(),30,'default');
 
- var done = false;
- function onPlayerStateChange(event) {
-   if (event.data == YT.PlayerState.PLAYING && !done) {
-     done = true;
+    // if('YouTube video player' === Background.title){
+      
+    //   return onError();
+
+    // }
+    
+  
+    console.log(event.target);
+    // CurrentWeather.getMediaData()
+    event.target.playVideo();
+    //  document.querySelector("#media-player i").className = "fas fa-solid fa-play-pause";
+    console.log(Background);
    }
- }
+
+   
+  function onPlayerStateChange(event) {
+
+    if (event.data == YT.PlayerState.PLAYING && !done) {
+       done = true;
+     
+      }
+      console.log(event,YT.PlayerState,done);
+   }
+   
+  function stopVideo() {
+   
+     player.stopVideo();
+   
+     console.log(player.isMuted(),player.getVolume());
+   
+    }
+  function onError(err){
+
+    
+
+   
+
+  
+    console.log(window.location.orgin);
+    console.dir(Background);
+    //요청 오류 
+    Background.src = `/image/${CurrentWeather.getPhotoData()}`;
+
+  }
+
+
+
+
+//  function onPlayerReady(event) {
  
- function stopVideo() {
-   player.stopVideo();
-   console.log(player.isMuted(),player.getVolume());
- }
+//   event.target.setSize(1950,1500);
+//    event.target.loadVideoById( CurrentWeather.getMediaData(),30,'default');
+//   //  event.target.setVolume(0);
+//   event.target.playVideo();
+//   event.target.unMute();
+//   // CurrentWeather.getMediaData()
+ 
+//   //  document.querySelector("#media-player i").className = "fas fa-solid fa-play-pause";
+
+//  }
+ 
+
+
 
