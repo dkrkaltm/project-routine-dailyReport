@@ -53,12 +53,10 @@ let Background;
 
     // }
     
-  
-    console.log(event.target);
     // CurrentWeather.getMediaData()
     event.target.playVideo();
     //  document.querySelector("#media-player i").className = "fas fa-solid fa-play-pause";
-    console.log(Background);
+   ;
    }
 
    
@@ -75,18 +73,11 @@ let Background;
    
      player.stopVideo();
    
-     console.log(player.isMuted(),player.getVolume());
+     
    
     }
   function onError(err){
 
-    
-
-   
-
-  
-    console.log(window.location.orgin);
-    console.dir(Background);
     //요청 오류 
     Background.src = `/image/${CurrentWeather.getPhotoData()}`;
 
