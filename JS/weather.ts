@@ -5,11 +5,11 @@ class Weather{
     protected URL: URL | RequestInfo;
     protected lat: any;
     protected lon: any;
-    protected key: string;
+    protected key: string = 'a854ccd67d3536e95247c8f926cff6a5';
 
-    protected sky: string;
-    protected temp: string;
-    protected name: string;
+    protected sky: string = '0';
+    protected temp: string = '0';
+    protected name: string = '0';
     constructor(){
 
     }
@@ -39,11 +39,11 @@ const CurrentWeather =  new class extends Weather{
     
     #sourceM: any = new Map([['맑음','https://www.youtube.com/watch?v=ADSXxZ2EjeM'],['비','https://youtu.be/lQ0fS2meTYQ'],['흐림','https://youtu.be/lQ0fS2meTYQ'],['구름','https://youtu.be/lQ0fS2meTYQ'],['눈','https://youtu.be/WacZouyU_Cs'],['안개','https://youtu.be/WacZouyU_Cs']]);
   
-    #source:string ; 
+    #source:string= '0'; 
 
     #photoM = new Map([['맑음','sunny.png'],['비','rain.png'],['흐림','cloudy.png'],['구름','cloudy.png'],['눈','snow.png'],['안개','fog.png']]);
 
-    #photo: string;
+    #photo: string= '0';
 
     #media:string = '0';
     
@@ -52,6 +52,7 @@ const CurrentWeather =  new class extends Weather{
         super();
 
         this.setData();
+        console.log(document.cookie);
    
     }
 

@@ -3,9 +3,9 @@ class Weather {
     lat;
     lon;
     key;
-    sky;
-    temp;
-    name;
+    sky = '0';
+    temp = '0';
+    name = '0';
     constructor() {
     }
     getLocation() {
@@ -21,13 +21,14 @@ class Weather {
 const CurrentWeather = new class extends Weather {
     #skyM = new Map([['맑음', 'ADSXxZ2EjeM'], ['비', 'lQ0fS2meTYQ'], ['흐림', 'lQ0fS2meTYQ'], ['구름', 'lQ0fS2meTYQ'], ['눈', 'WacZouyU_Cs'], ['안개', 'G_BYjnopO6U']]);
     #sourceM = new Map([['맑음', 'https://www.youtube.com/watch?v=ADSXxZ2EjeM'], ['비', 'https://youtu.be/lQ0fS2meTYQ'], ['흐림', 'https://youtu.be/lQ0fS2meTYQ'], ['구름', 'https://youtu.be/lQ0fS2meTYQ'], ['눈', 'https://youtu.be/WacZouyU_Cs'], ['안개', 'https://youtu.be/WacZouyU_Cs']]);
-    #source;
+    #source = '0';
     #photoM = new Map([['맑음', 'sunny.png'], ['비', 'rain.png'], ['흐림', 'cloudy.png'], ['구름', 'cloudy.png'], ['눈', 'snow.png'], ['안개', 'fog.png']]);
-    #photo;
+    #photo = '0';
     #media = '0';
     constructor() {
         super();
         this.setData();
+        console.log(document.cookie);
     }
     async setData() {
         try {

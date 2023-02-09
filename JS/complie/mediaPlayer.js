@@ -12,7 +12,7 @@ const NavEvent = new class {
             window.open(CurrentWeather.getSourceData());
         };
         this.#Volume.onclick = (e) => {
-            e.target.style.color != 'tomato' ? NavFCT.seekBarShow(e.target, this.#SeekBar, 'tomato') : NavFCT.seekBarShow(e.target, this.#SeekBar, 'white');
+            NavFCT.seekBarShow(e.target, this.#SeekBar);
         };
     }
 };
@@ -20,18 +20,18 @@ const NavFCT = new class {
     constructor() { }
     player(text) {
         if (text === 'STOP') {
-            stopVideo();
+            MediaPlayer.stopVideo();
             return 'START';
         }
         else if (text === 'START') {
-            player.loadVideoById(CurrentWeather.getMediaData(), 30, 'default');
+            MediaPlayer.setLoadVideo(CurrentWeather.getMediaData(), 30, 'default');
             return 'STOP';
         }
         else {
             console.error('error');
         }
     }
-    seekBarShow(target, bar, color) {
+    seekBarShow(target, bar) {
         if (bar.classList.contains('hidden')) {
             bar.animate({
                 opacity: [0, 1],
@@ -48,17 +48,21 @@ const NavFCT = new class {
 const seekBarFCT = new class {
     #SeekbarBox = document.querySelector('#seekBar-box');
     #SeekbarBTN = document.querySelector('#seekBar-box-btn');
+    #SeekbarColor = document.querySelector('#seekBar-box-color');
+    #SeekbarNumber = document.querySelector('#seekBar-box-number');
+    #BoxRect;
     #beforeX = 0;
     #clientX_gab = 0;
     #leftVal = 0;
-    #movingVal = 0;
+    #checkValue = 0;
+    #percentValue = 0;
     constructor() {
         this.#SeekbarBTN.onmousedown = (e) => {
             e.preventDefault();
             this.#beforeX = e.clientX;
             document.onmousemove = (e) => {
                 e.preventDefault();
-                seekBarFCT.move(e, this.#SeekbarBox, this.#SeekbarBTN);
+                seekBarFCT.move(e, this.#SeekbarBox, this.#SeekbarBTN, this.#SeekbarColor, this.#SeekbarNumber);
             };
             document.onmouseup = (e) => {
                 e.preventDefault();
@@ -66,23 +70,20 @@ const seekBarFCT = new class {
             };
         };
     }
-    move(e, box, btn) {
-        console.log('e', e);
-        this.#clientX_gab = e.clientX - this.#beforeX;
-        this.#beforeX = e.clientX;
-        this.#movingVal = btn.offsetLeft + this.#clientX_gab;
-        if (this.#movingVal < 0) {
+    move(e, box, btn, color, number) {
+        this.#BoxRect = box.getBoundingClientRect();
+        this.#leftVal = e.pageX - this.#BoxRect.left;
+        if (this.#leftVal > this.#BoxRect.width)
+            this.#leftVal = this.#BoxRect.width;
+        if (this.#leftVal < 0)
             this.#leftVal = 0;
-            console.log(this.#movingVal, box.offsetLeft, box.clientWidth);
-        }
-        else if (this.#movingVal >= box.clientWidth) {
-            this.#leftVal = box.clientWidth;
-        }
-        else {
-            this.#leftVal = this.#movingVal;
-        }
-        btn.style.left = this.#leftVal + "px";
-        console.log(btn.style.left);
+        btn.style.left = this.#leftVal - 10 + 'px';
+        this.#percentValue = this.#leftVal / this.#BoxRect.width * 100;
+        color.style.width = this.#percentValue + "%";
+        number.style.left = btn.style.left;
+        number.style.opacity = '1';
+        number.textContent = Math.floor(this.#percentValue) + '%';
+        MediaPlayer.sound(this.#percentValue);
     }
     stop(e) {
         document.onmouseup = null;

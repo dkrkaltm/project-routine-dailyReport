@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/youtube-player": "^5.5.7",
     "gsap": "^3.11.4",
     "yt-player": "^3.6.1"
   }
