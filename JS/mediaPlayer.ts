@@ -3,181 +3,166 @@
 const NavEvent = new class{
 
     
-    #Button = document.querySelector("#media-player-button") as HTMLElement;
-    #ButtonLabel = document.querySelector('#media-player-buttonL') as HTMLElement;
+  #Button = document.querySelector("#media-player-button") as HTMLElement;
+  #ButtonLabel = document.querySelector('#media-player-buttonL') as HTMLElement;
 
-    #Source = document.querySelector("#media-player-source") as HTMLElement;
+  #Source = document.querySelector("#media-player-source") as HTMLElement;
+
+  #Volume = document.querySelector("#media-player-volume") as HTMLElement;
+  #SeekBar = document.querySelector("#seekBar") as HTMLElement;
+
+  constructor(){
   
-    #Volume = document.querySelector("#media-player-volume") as HTMLElement;
-    #SeekBar = document.querySelector("#seekBar") as HTMLElement;
-
-    constructor(){
-    
-      this.#Button.onclick = ():void => {
-        
-          this.#ButtonLabel.innerText = NavFCT.player(this.#ButtonLabel.innerText);
-
-      }
-      this.#Source.onclick = ():void => {
-
-        // window.location.href = CurrentWeather.getSourceData();
-        window.open(CurrentWeather.getSourceData());
-     
-      }
-      this.#Volume.onclick = (e:any):void =>{
-
-            e.target.style.color !='tomato' ? NavFCT.seekBarShow(e.target,this.#SeekBar,'tomato'):NavFCT.seekBarShow(e.target,this.#SeekBar,'white');
+    this.#Button.onclick = ():void => {
       
-      }      
-    }
-  
-}
+        this.#ButtonLabel.innerText = NavFCT.player(this.#ButtonLabel.innerText);
 
+    }
+    this.#Source.onclick = ():void => {
+
+      // window.location.href = CurrentWeather.getSourceData();
+      window.open(CurrentWeather.getSourceData());
+   
+    }
+    this.#Volume.onclick = (e:any):void =>{
+
+         NavFCT.seekBarShow(e.target,this.#SeekBar);
+    }      
+  }
+
+}
+/////////////////////////////////////////////
 const NavFCT = new class{
 
 
-  constructor(){}
+constructor(){}
 
-  player(text:string): string{
-    
-    if(text === 'STOP'){
-          
-        stopVideo();
-          
-          return 'START';
-          
-    }else if( text === 'START'){
-      
-        // player.playVideo();
-        player.loadVideoById(CurrentWeather.getMediaData(),30,'default');
-       
-        return 'STOP'
-
-    }else{
-      console.error('error');
-    }
-
-  }
-  seekBarShow(target:any,bar: Element,color : string):void{
-
-    if(bar.classList.contains('hidden')){ 
+player(text:string): string{
+  
+  if(text === 'STOP'){
         
+      MediaPlayer.stopVideo();
+        
+        return 'START';
+        
+  }else if( text === 'START'){
+    
+      // player.playVideo();
+      MediaPlayer.setLoadVideo(CurrentWeather.getMediaData(),30,'default');
      
-      bar.animate(
-        {
-          
-          opacity:[0,1],
-        
-        }
-        ,
-        { 
-          easing: "ease-in-out",
-         
-          fill : 'forwards',
-         
-          duration:800,
-      
-        });
+      return 'STOP'
 
-
-    }
-    
-    bar.classList.toggle('hidden');
-    
-    target.classList.toggle('strong');
-        
-   
+  }else{
+    console.error('error');
   }
+  return '0';
+}
+seekBarShow(target:any,bar: Element):void{
+
+  if(bar.classList.contains('hidden')){ 
+      
+   
+    bar.animate(
+      {
+        
+        opacity:[0,1],
+      
+      }
+      ,
+      { 
+        easing: "ease-in-out",
+       
+        fill : 'forwards',
+       
+        duration:800,
+    
+      });
+
+
+  }
+  
+  bar.classList.toggle('hidden');
+  
+  target.classList.toggle('strong');
+      
+ 
+}
 }
 
-
+/////////////////////////////////////////////
 const seekBarFCT = new class{
 
-  #SeekbarBox = document.querySelector('#seekBar-box') as HTMLElement;
-  
-  #SeekbarBTN = document.querySelector('#seekBar-box-btn') as HTMLElement;
+#SeekbarBox = document.querySelector('#seekBar-box') as HTMLElement;
+
+#SeekbarBTN = document.querySelector('#seekBar-box-btn') as HTMLElement;
+#SeekbarColor = document.querySelector('#seekBar-box-color') as HTMLElement;
+#SeekbarNumber = document.querySelector('#seekBar-box-number') as HTMLElement;
+
+#BoxRect:DOMRect;
 
 
+#beforeX: number = 0;
+#clientX_gab: number = 0;
+#leftVal: number = 0;
+#checkValue: number = 0;
+#percentValue: number = 0;
 
-  #beforeX: number = 0;
-  #clientX_gab: number = 0;
-  #leftVal: number = 0;
-  #movingVal: number = 0;
+constructor(){
 
-  constructor(){
+  this.#SeekbarBTN.onmousedown = (e: MouseEvent):void =>{
+    e.preventDefault();
+ 
+      this.#beforeX = e.clientX;
 
-    this.#SeekbarBTN.onmousedown = (e: MouseEvent):void =>{
-      e.preventDefault();
-   
-        this.#beforeX = e.clientX;
-
-        document.onmousemove = (e:MouseEvent):void => {
-          e.preventDefault();
-          seekBarFCT.move(e,this.#SeekbarBox,this.#SeekbarBTN);
+      document.onmousemove = (e:MouseEvent):void => {
         
-        }
-        document.onmouseup = (e:MouseEvent):void => {
-          e.preventDefault();
-          seekBarFCT.stop(e);
-
-        }
-    }
-    
-  }
-  move(e:MouseEvent, box: HTMLElement, btn: HTMLElement):void{
-    
-    
-    // 상대적-> 현재  - 이전 값 
-    console.log('e',e);
-    this.#clientX_gab = e.clientX - this.#beforeX;
-
-    // 현재 값 
-    this.#beforeX = e.clientX;
-    
-    // btn.style.left  = (btn.offsetLeft + this.#clientX_gab) + "px";
-    // offsetleft -> box left  
-    this.#movingVal = btn.offsetLeft + this.#clientX_gab;
-    
-
-    // left, right
-    if(this.#movingVal < 0){
-    
-      this.#leftVal = 0;
-      console.log(this.#movingVal,box.offsetLeft,box.clientWidth);
-    }else if(this.#movingVal >= box.clientWidth){
+        e.preventDefault();
+        
+        seekBarFCT.move(e,this.#SeekbarBox,this.#SeekbarBTN, this.#SeekbarColor, this.#SeekbarNumber);
       
-      this.#leftVal = box.clientWidth;
+      }
+      document.onmouseup = (e:MouseEvent):void => {
+        
+        e.preventDefault();
+        
+        seekBarFCT.stop(e);
+
+      }
+  }
   
-    }else{
-      this.#leftVal = this.#movingVal;
-    }
-    // console.log(btn.offsetLeft, this.#clientX_gab);
-    // // 현재 left 
-    //   console.log('btn', btn.offsetLeft);
-    // if(btn.offsetLeft + this.#clientX_gab < 0 || this.#beforeX < box.offsetLeft){
-    //     this.#leftVal = 0;
-    //     alert('1');
-    // }else if((btn.offsetLeft + this.#clientX_gab) > box.clientWidth || this.#beforeX > (box.offsetLeft+box.clientWidth)){
-      
-     
-    //   this.#leftVal = box.clientWidth;
-   
-    // }else{
-    
-    //   this.#leftVal = (btn.offsetLeft + this.#clientX_gab);
-    
-    // }
+}
+move(e:MouseEvent, box: HTMLElement, btn: HTMLElement, color: HTMLElement, number: HTMLElement):void{
+  
+ 
+  this.#BoxRect = box.getBoundingClientRect();
 
-    btn.style.left  = this.#leftVal +"px";
-    console.log(btn.style.left);
-  }
-  stop(e:any):void{
+  this.#leftVal = e.pageX - this.#BoxRect.left;
 
-    document.onmouseup = null;
-   
-    document.onmousemove = null;
+  if(this.#leftVal > this.#BoxRect.width) this.#leftVal = this.#BoxRect.width;
+  
+  if( this.#leftVal < 0) this.#leftVal = 0;
 
-  }
+  btn.style.left = this.#leftVal-10 + 'px';
+
+  this.#percentValue = this.#leftVal / this.#BoxRect.width * 100;
+
+  color.style.width = this.#percentValue + "%";
+
+  number.style.left =  btn.style.left ;
+
+  number.style.opacity = '1';
+
+  number.textContent = Math.floor(this.#percentValue) + '%';
+
+  MediaPlayer.sound(this.#percentValue);
+
 
 }
+stop(e:any):void{
 
+  document.onmouseup = null;
+ 
+  document.onmousemove = null;
+
+}
+}

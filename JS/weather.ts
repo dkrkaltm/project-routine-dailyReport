@@ -2,14 +2,14 @@
 
 class Weather{
 
-    protected URL: URL | RequestInfo;
-    protected lat: any;
+    protected URL: URL | RequestInfo = '0';
     protected lon: any;
+    protected lat: any;
     protected key: string;
 
-    protected sky: string;
-    protected temp: string;
-    protected name: string;
+    protected sky: string  = '0';
+    protected temp: string = '0';
+    protected name: string = '0';
     constructor(){
 
     }
@@ -20,13 +20,16 @@ class Weather{
           
             navigator.geolocation.getCurrentPosition((position) =>{
                 
+            
                 this.lat =position.coords.latitude;
                
                 this.lon = position.coords.longitude;
 
                 resolve('성공');
                 
-            },()=>{console.error('에러')});
+            },()=>{
+                alert('a');
+                console.error('에러')});
     
         }); 
 
@@ -39,11 +42,11 @@ const CurrentWeather =  new class extends Weather{
     
     #sourceM: any = new Map([['맑음','https://www.youtube.com/watch?v=ADSXxZ2EjeM'],['비','https://youtu.be/lQ0fS2meTYQ'],['흐림','https://youtu.be/lQ0fS2meTYQ'],['구름','https://youtu.be/lQ0fS2meTYQ'],['눈','https://youtu.be/WacZouyU_Cs'],['안개','https://youtu.be/WacZouyU_Cs']]);
   
-    #source:string ; 
+    #source:string= '0' ; 
 
-    #photoM = new Map([['맑음','sunny.png'],['비','rain.png'],['흐림','cloudy.png'],['구름','cloudy.png'],['눈','snow.png'],['안개','fog.png']]);
+    #photoM:any = new Map([['맑음','sunny.png'],['비','rain.png'],['흐림','cloudy.png'],['구름','cloudy.png'],['눈','snow.png'],['안개','fog.png']]);
 
-    #photo: string;
+    #photo:string = '0';
 
     #media:string = '0';
     
@@ -51,7 +54,7 @@ const CurrentWeather =  new class extends Weather{
        
         super();
 
-        this.setData();
+    
    
     }
 
@@ -62,6 +65,7 @@ const CurrentWeather =  new class extends Weather{
        try{
             await this.getLocation();
 
+            console.log(this.lat, this.lon);
             this.URL = `https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&lang=kr&appid=${this.key}&units=metric`;
 
             await fetch(this.URL).then(response => response.json())
@@ -70,8 +74,6 @@ const CurrentWeather =  new class extends Weather{
                     this.sky = data.weather[0].description;
                     
                     this.name = data.name;
-
-                    console.log(this.sky);
                 
                     this.#skyM.forEach((v:string,k:string,arr:[]) => {
                         
@@ -80,8 +82,10 @@ const CurrentWeather =  new class extends Weather{
                             this.#media = v;
 
                             this.#source =this.#sourceM.get(k);
+                            
 
                             this.#photo = this.#photoM.get(k);
+                            console.log('weatherData', this.sky, this.#source);
                         }
                        
                     });
@@ -89,7 +93,7 @@ const CurrentWeather =  new class extends Weather{
             });     
             
         }catch(err){
-
+          
             console.error(err);
         
         }
@@ -99,7 +103,7 @@ const CurrentWeather =  new class extends Weather{
         return this.#media;
     }
     getSkyData(): string{
-
+      
         return this.sky;
     }
     getSourceData(): string{

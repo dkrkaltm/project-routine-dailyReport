@@ -1,14 +1,23 @@
 
- var tag = document.createElement('script');
 
- tag.src = "https://www.youtube.com/iframe_api";
- var firstScriptTag = document.getElementsByTagName('script')[0];
- firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+(async function(){
+
+  await CurrentWeather.setData();
+  
+  var tag = document.createElement('script');
+
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+}());
 
 
- var player;
  function onYouTubeIframeAPIReady() {
-   player = new YT.Player('player', {
+
+  let player;
+  
+  player = new YT.Player('player', {
      height: '100%',
      width: '100%',
      playerVars:{
@@ -26,26 +35,40 @@
    },
   
      events: {
-       'onReady': onPlayerReady,
-       'onStateChange': onPlayerStateChange,
-       'onError':onError
+       'onReady': (e) => {
+        MediaPlayer.onPlayerReady(e);
+       },
+       'onStateChange':(e) =>{
+        MediaPlayer.onPlayerStateChange(e);
+       },
+       'onError':() =>{
+        MediaPlayer.onError();
+       }
      }
    });
  }
 
+const MediaPlayer = new class{
 
+  
+  #done = false;
+  #Background;
+  #player;
 
-let done = false;
-let Background;
- function onPlayerReady(event) {
+  constructor(){}
+
+  onPlayerReady(event) {
+
+    this.#player = event.target;
+
+    this.#Background = document.querySelector('#player');
     
-    Background = document.querySelector('#player');
-    event.target.setSize(1950,1500);
+    this.#player.setSize(1950,1500);
     //  event.target.loadVideoById('av',30,'default');
     //  event.target.setVolume(0);
 
-   
-    event.target.loadVideoById(CurrentWeather.getMediaData(),30,'default');
+  //  CurrentWeather.getMediaData()
+    this.#player.loadVideoById(CurrentWeather.getMediaData(),30,'default');
 
     // if('YouTube video player' === Background.title){
       
@@ -54,34 +77,53 @@ let Background;
     // }
     
     // CurrentWeather.getMediaData()
-    event.target.playVideo();
+    this.#player.playVideo();
     //  document.querySelector("#media-player i").className = "fas fa-solid fa-play-pause";
-   ;
    }
 
-   
-  function onPlayerStateChange(event) {
+  onPlayerStateChange(event) {
 
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-       done = true;
+    if (event.data == YT.PlayerState.PLAYING && !this.#done) {
+        this.#done = true;
      
       }
-      console.log(event,YT.PlayerState,done);
    }
-   
-  function stopVideo() {
-   
-     player.stopVideo();
-   
-     
-   
-    }
-  function onError(err){
+  onError(err){
 
     //요청 오류 
-    Background.src = `/image/${CurrentWeather.getPhotoData()}`;
+   this.#Background.src = `/image/${CurrentWeather.getPhotoData()}`;
 
   }
+ stopVideo() {
+   
+  this.#player.stopVideo();
+  
+  }
+ setLoadVideo(media,second, type){
+
+  this.#player.loadVideoById(media,second,type);
+
+}
+sound(v){
+
+  this.#player.isMuted() ? this.#player.unMute(): '';
+
+  this.#player.setVolume(v);
+
+
+}
+  
+}
+
+
+
+
+
+
+ 
+
+
+  
 
 
 

@@ -14,14 +14,19 @@
     <script src="../JS/background.js" defer></script>
     <script src ="../JS/complie/mediaPlayer.js" defer></script>
 
+
+    <script src ="../JS/complie/planer.js" defer></script>
+
     <link rel="stylesheet" href="../css/main.css">
+
 
     
 </head>
 <body>
     <section id = 'routine'>
+        <h1 class='hidden'>routin space</h1>
 
-        <article id='time-container'>
+        <article class='container1' id='time-container'>
             <time id= 'time-date'></time>
             <time id= 'time-hour'></time>
             
@@ -30,7 +35,7 @@
                 <label for='target-input'id = 'target-label' >이번 주 목표는?</label>
                 <span id="target-line"></span>
             </form>    
-            <button  id='target-button' type='click'>
+            <button  id='target-button' type='button'>
                 <i id="arrow" class="fas fa-solid fa-arrow-right"></i>
                 일정등록
             </button>
@@ -64,8 +69,23 @@
         </article>
  
         
-        <article id ='planer' class="hidden">
-            <form action="" method ='get' id = 'planer-form'>
+        <article id ='planer' class="container2 hidden">
+            <form action="" method ='get' id = 'planer-submit'>
+                
+                <input type="text" placeholder="입력">
+
+                <button type="button">추가</button>
+
+            </form>
+                <ul id='planer-list'>
+                    <li></li>
+                    <li></li>
+                </ul>
+            <form action="URL" method ='get' id = 'planer-setting'>
+                <ul id='planer-setting-value'>
+                    <li></li>
+                    <li></li>
+                </ul>
             </form>
         </article>
   

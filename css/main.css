@@ -2,6 +2,7 @@
 @import 'reset.css';
 @import 'background.css';
 @import 'mediaPlayer.css';
+@import 'planer.css';
 
 .hidden{
     display: none;
@@ -22,7 +23,7 @@
 }
 
 /* time */
-#time-container{
+.container1{
     z-index: 0;
     display: flex;
     flex-direction: column;

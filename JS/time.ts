@@ -1,8 +1,8 @@
 
 const Time = new class{
 
-    #Edate = document.querySelector('#time-date');
-    #Ehour = document.querySelector('#time-hour');
+    #Edate = document.querySelector('#time-date') as HTMLElement;
+    #Ehour = document.querySelector('#time-hour') as HTMLElement;
 
 
     #date: string = new Intl.DateTimeFormat('ko',{
@@ -15,7 +15,7 @@ const Time = new class{
     #minute: number | string= 0;
     #second: number | string= 0;
 
-    #arr: (String | number)[];
+    #arr: (string | number)[] =[];
    
     constructor(){
         this.#Edate.innerHTML = `${this.#date} ${this.#WEEKDAY[new Date().getDay()]}`;

@@ -70,5 +70,12 @@
     left: 0;
     border-radius: inherit;
 }
+#seekBar-box-number{
+    position: absolute;
+    /* width: 1rem;
+    height: 1rem; */
+    top:-25px;
+    opacity: 0;
+}
 
 /* common */
