@@ -1,6 +1,5 @@
 
 
-<<<<<<< HEAD
 (async function(){
 
   await CurrentWeather.setData();
@@ -13,8 +12,6 @@
   
 }());
 
-=======
->>>>>>> 962b350d15ee4f7e715df1d49dfc253c23e25906
 
  function onYouTubeIframeAPIReady() {
 
