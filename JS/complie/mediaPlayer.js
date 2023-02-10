@@ -11,7 +11,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
     return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 };
-var _Button, _ButtonLabel, _Source, _Volume, _SeekBar, _a, _SeekbarBox, _SeekbarBTN, _SeekbarColor, _SeekbarNumber, _BoxRect, _beforeX, _clientX_gab, _leftVal, _checkValue, _percentValue, _b;
+var _Button, _ButtonLabel, _Source, _Volume, _SeekBar, _a, _SeekbarBox, _SeekbarBTN, _SeekbarColor, _SeekbarNumber, _BoxRect, _BoxRect_1, _beforeX, _clientX_gab, _leftVal, _checkValue, _percentValue, _b;
 const NavEvent = new (_a = class {
         constructor() {
             _Button.set(this, document.querySelector("#media-player-button"));
@@ -71,12 +71,15 @@ const NavFCT = new class {
 };
 /////////////////////////////////////////////
 const seekBarFCT = new (_b = class {
+        #BoxRect;
+        #BoxRect;
         constructor() {
             _SeekbarBox.set(this, document.querySelector('#seekBar-box'));
             _SeekbarBTN.set(this, document.querySelector('#seekBar-box-btn'));
             _SeekbarColor.set(this, document.querySelector('#seekBar-box-color'));
             _SeekbarNumber.set(this, document.querySelector('#seekBar-box-number'));
-            _BoxRect.set(this, void 0);
+            _BoxRect_1.set(this, void 0);
+            _BoxRect_1.set(this, void 0);
             _beforeX.set(this, 0);
             _clientX_gab.set(this, 0);
             _leftVal.set(this, 0);
@@ -96,14 +99,14 @@ const seekBarFCT = new (_b = class {
             };
         }
         move(e, box, btn, color, number) {
-            __classPrivateFieldSet(this, _BoxRect, box.getBoundingClientRect(), "f");
-            __classPrivateFieldSet(this, _leftVal, e.pageX - __classPrivateFieldGet(this, _BoxRect, "f").left, "f");
-            if (__classPrivateFieldGet(this, _leftVal, "f") > __classPrivateFieldGet(this, _BoxRect, "f").width)
-                __classPrivateFieldSet(this, _leftVal, __classPrivateFieldGet(this, _BoxRect, "f").width, "f");
+            __classPrivateFieldSet(this, _BoxRect_1, box.getBoundingClientRect(), "f");
+            __classPrivateFieldSet(this, _leftVal, e.pageX - __classPrivateFieldGet(this, _BoxRect_1, "f").left, "f");
+            if (__classPrivateFieldGet(this, _leftVal, "f") > __classPrivateFieldGet(this, _BoxRect_1, "f").width)
+                __classPrivateFieldSet(this, _leftVal, __classPrivateFieldGet(this, _BoxRect_1, "f").width, "f");
             if (__classPrivateFieldGet(this, _leftVal, "f") < 0)
                 __classPrivateFieldSet(this, _leftVal, 0, "f");
             btn.style.left = __classPrivateFieldGet(this, _leftVal, "f") - 10 + 'px';
-            __classPrivateFieldSet(this, _percentValue, __classPrivateFieldGet(this, _leftVal, "f") / __classPrivateFieldGet(this, _BoxRect, "f").width * 100, "f");
+            __classPrivateFieldSet(this, _percentValue, __classPrivateFieldGet(this, _leftVal, "f") / __classPrivateFieldGet(this, _BoxRect_1, "f").width * 100, "f");
             color.style.width = __classPrivateFieldGet(this, _percentValue, "f") + "%";
             number.style.left = btn.style.left;
             number.style.opacity = '1';
@@ -120,6 +123,7 @@ const seekBarFCT = new (_b = class {
     _SeekbarColor = new WeakMap(),
     _SeekbarNumber = new WeakMap(),
     _BoxRect = new WeakMap(),
+    _BoxRect_1 = new WeakMap(),
     _beforeX = new WeakMap(),
     _clientX_gab = new WeakMap(),
     _leftVal = new WeakMap(),

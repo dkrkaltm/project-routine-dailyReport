@@ -4,10 +4,16 @@ class Weather{
 
     protected URL: URL | RequestInfo = '0';
     protected lon: any;
+<<<<<<< HEAD
     protected lat: any;
     protected key: string;
 
     protected sky: string  = '0';
+=======
+    protected key: string = 'a854ccd67d3536e95247c8f926cff6a5';
+
+    protected sky: string = '0';
+>>>>>>> 962b350d15ee4f7e715df1d49dfc253c23e25906
     protected temp: string = '0';
     protected name: string = '0';
     constructor(){
@@ -42,11 +48,19 @@ const CurrentWeather =  new class extends Weather{
     
     #sourceM: any = new Map([['맑음','https://www.youtube.com/watch?v=ADSXxZ2EjeM'],['비','https://youtu.be/lQ0fS2meTYQ'],['흐림','https://youtu.be/lQ0fS2meTYQ'],['구름','https://youtu.be/lQ0fS2meTYQ'],['눈','https://youtu.be/WacZouyU_Cs'],['안개','https://youtu.be/WacZouyU_Cs']]);
   
+<<<<<<< HEAD
     #source:string= '0' ; 
+=======
+    #source:string= '0'; 
+>>>>>>> 962b350d15ee4f7e715df1d49dfc253c23e25906
 
     #photoM:any = new Map([['맑음','sunny.png'],['비','rain.png'],['흐림','cloudy.png'],['구름','cloudy.png'],['눈','snow.png'],['안개','fog.png']]);
 
+<<<<<<< HEAD
     #photo:string = '0';
+=======
+    #photo: string= '0';
+>>>>>>> 962b350d15ee4f7e715df1d49dfc253c23e25906
 
     #media:string = '0';
     
@@ -54,7 +68,12 @@ const CurrentWeather =  new class extends Weather{
        
         super();
 
+<<<<<<< HEAD
     
+=======
+        this.setData();
+        console.log(document.cookie);
+>>>>>>> 962b350d15ee4f7e715df1d49dfc253c23e25906
    
     }
 
